@@ -2,7 +2,7 @@ import cv2 as cv
 
 backSub = cv.createBackgroundSubtractorMOG2()
 
-inVideo = "vtest.avi"
+inVideo = "../data/Schafe.wmv"
 
 capture = cv.VideoCapture(inVideo)
 if not capture.isOpened:
@@ -14,10 +14,12 @@ while True:
     if frame is None:
         break
 
-    fgMask = backSub.apply(frame)
+    # median filter
+    medianFilter = cv.medianBlur(frame, 5)
+    fgMask = backSub.apply(medianFilter)
 
-    cv.rectangle(frame, (10, 2), (100, 20), (255, 255, 255), -1)
-    cv.putText(frame, str(capture.get(cv.CAP_PROP_POS_FRAMES)), (15, 15),
+    cv.rectangle(medianFilter, (10, 2), (100, 20), (255, 255, 255), -1)
+    cv.putText(medianFilter, str(capture.get(cv.CAP_PROP_POS_FRAMES)), (15, 15),
                cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0))
 
     #cv.imshow('Frame', frame)
