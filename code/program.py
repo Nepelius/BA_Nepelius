@@ -14,8 +14,11 @@ while True:
     if frame is None:
         break
 
+    # gauß filter
+    gauss = cv.GaussianBlur(frame, (7,7), 0)
+
     # median filter
-    medianFilter = cv.medianBlur(frame, 5)
+    medianFilter = cv.medianBlur(gauss, 7)
     fgMask = backSub.apply(medianFilter)
 
     cv.rectangle(medianFilter, (10, 2), (100, 20), (255, 255, 255), -1)
