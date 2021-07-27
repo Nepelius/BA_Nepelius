@@ -36,9 +36,8 @@ while True:
             x,y,w,h = cv.boundingRect(cnt)
             cv.rectangle(frame, (x,y), (x + w, y + h), (0, 255, 0), 2)
 
-            cv.imshow('Frame', frame)
-            cv.imshow('FG Mask', fgMask)
-
+    cv.imshow('Frame', frame)
+    cv.imshow('FG Mask', fgMask)
     cv.rectangle(fgMask, (10, 2), (100, 20), (255, 255, 255), -1)
     cv.putText(fgMask, str(capture.get(cv.CAP_PROP_POS_FRAMES)), (15, 15),
                cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0))

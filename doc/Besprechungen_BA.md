@@ -8,3 +8,12 @@
 * Git aufsetzten
 
 # 2. Besprechung
+
+* Tiere klassifizieren nicht unbedingt notwendig trotzdem beide Ansätze weitermachen
+* Dateien bei YOLO passen nicht zusammen
+* Zustandsautomat wenn einzelne frames fehlen
+* mit dem expose anfangen wenn beide Richtungen gefestigt wurden
+* medianfilter in der Tiefe mehrerer Bilder (Bild im doc Ordner)
+* So Schreiben wie wenn es schon völlig klar wäre dass ein falscher Ansatz falsch ist
+* Die richtigen Ansätze genauer beschreiben (Scientific Papers)
+
