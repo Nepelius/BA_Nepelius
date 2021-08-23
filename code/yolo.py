@@ -1,7 +1,7 @@
+import os
 import cv2
 import numpy as np
 import PySimpleGUI as ps
-import threading
 
 # GUI
 
@@ -9,7 +9,12 @@ ps.theme("DarkAmber")
 
 file_frame = [
     [
-        ps.Listbox(values=(1,2,3), size=(20,100))
+        ps.Text("Load Video or folder"),
+        ps.In(enable_events=True, key="-FOLDER-"),
+        ps.FolderBrowse()
+    ],
+    [
+        ps.Listbox(values=[], size=(70,20), enable_events=True, key="-FILE LIST-")
     ]
 ]
 
@@ -31,17 +36,13 @@ layout = [
     ]
 ]
 
-window = ps.Window("Animal detector", layout, size=(1525,780), location=(0,0))
+window = ps.Window("Animal detector", layout)
 
 # Program
 
-inVid = '../data/Schafe.wmv'
+#inVid = '../data/Schafe.wmv'
 #inVid = 'vtest.avi'
-
-
-#if not capture.isOpened:
-#    print('Unable to open')
-#    exit(0)
+inVid = ""
 
 classNames = []
 classFile = 'coco.names'
@@ -145,9 +146,35 @@ while True:
 
     #th = threading.Thread(target=play_video)
     if event == "-PLAY-":
-        window.disable()
-        play_video()
-        window.enable()
+        if inVid != "":
+            window.disable()
+            play_video()
+            window.enable()
+        else:
+            ps.popup_error("Please choose a file")
+
+    if event == "-FOLDER-":
+        folder = values["-FOLDER-"]
+        try:
+            file_list = os.listdir(folder)
+        except:
+            file_list = []
+
+        names = [
+            f
+            for f in file_list
+            if os.path.isfile(os.path.join(folder, f))
+            and f.lower().endswith((".wmv", ".avi"))
+        ]
+
+        window["-FILE LIST-"].update(names)
+    if event == "-FILE LIST-":
+        try:
+            filename = os.path.join(values["-FOLDER-"],values["-FILE LIST-"][0])
+            print(filename)
+            inVid = filename
+        except:
+            pass
 
 window.close()
 cv2.destroyAllWindows()
