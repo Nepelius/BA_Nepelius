@@ -8,6 +8,7 @@
 % !BIB program = biber
 
 \documentclass[bachelor,german,smartquotes]{hgbthesis}
+
 % Zulässige Optionen in [..]: 
 %    Typ der Arbeit: 'diploma', 'master' (default), 'bachelor', 'internship' 
 %    Hauptsprache: 'german' (default), 'english'
@@ -20,14 +21,13 @@
 \graphicspath{{images/}}  % Verzeichnis mit Bildern und Grafiken
 \logofile{logo}           % Logo-Datei: images/logo.pdf (kein Logo: \logofile{})
 \bibliography{references} % Biblatex-Literaturdatei (references.bib)
-
 %%%-----------------------------------------------------------------------------
 % Angaben für die Titelei (Titelseite, Erklärung etc.)
 %%%-----------------------------------------------------------------------------
 
 \title{Erkennung und Klassifikation von Wildtieren mittels Computer Vision}
 \author{Lukas Nikolaus Nepelius}
-\programname{Universal Computing}
+\programname{Medizin- und Bioinformatik}
 
 %\programtype{Fachhochschul-Bachelorstudiengang} % auswählen/editieren
 \programtype{Fachhochschul-Bachelorstudiengang}
@@ -35,7 +35,7 @@
 \placeofstudy{Hagenberg}
 \dateofsubmission{2021}{07}{15} % {YYYY}{MM}{DD}
 
-\advisor{Alois B.~Treuer, Päd.\ Phil.} % optional
+\advisor{DI (FH) Dr. Gerald Zwettler MSc} % optional
 
 %\strictlicense % restriktive Lizenz anstatt Creative Commons (nicht empfohlen!)
 
@@ -51,7 +51,7 @@
 \tableofcontents
 
 \include{front/vorwort} % Ein Vorwort ist optional
-\include{front/kurzfassung}		
+\include{front/kurzfassung}
 \include{front/abstract}			
 
 %%%-----------------------------------------------------------------------------
@@ -59,22 +59,13 @@
 %%%-----------------------------------------------------------------------------
 
 \include{chapters/einleitung}
-\include{chapters/abschlussarbeit}
-\include{chapters/latex}
-\include{chapters/abbildungen}
-\include{chapters/mathematik}
-\include{chapters/literatur}
-\include{chapters/drucken}
-\include{chapters/schluss}
+\include{chapters/Grundlagen}
 
 %%%-----------------------------------------------------------------------------
 \appendix                                                               % Anhang 
 %%%-----------------------------------------------------------------------------
 
-\include{back/anhang_a}	% Technische Ergänzungen
-\include{back/anhang_b}	% Inhalt der CD-ROM/DVD
-\include{back/anhang_c}	% Chronologische Liste der Änderungen
-\include{back/anhang_d}	% Quelltext dieses Dokuments
+% Anhänge
 
 %%%-----------------------------------------------------------------------------
 \backmatter                          % Schlussteil (Quellenverzeichnis und dgl.)

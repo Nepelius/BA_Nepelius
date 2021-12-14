@@ -8,13 +8,13 @@
 \ProvidesPackage{hgbbib}[2021/06/24]%%AUTO
 
 \newcommand{\@bibstyle}{numeric-comp}	%% default bibliography style is 'numeric-comp'
-\DeclareOption{apa}{\renewcommand{\@bibstyle}{apa}}
+\DeclareOption{authordate4}{\renewcommand{\@bibstyle}{authordate4}}
 \ProcessOptions\relax
 
 \RequirePackage{xifthen}
 
 %\usepackage[style=numeric-comp,backend=biber,bibencoding=auto]{biblatex}
-\usepackage[style=\@bibstyle,backend=biber]{biblatex}
+\usepackage[style=\@bibstyle,maxbibnames=9,backend=biber]{biblatex}
 \ExecuteBibliographyOptions{
 	bibencoding=auto,
 	bibwarn=true,
