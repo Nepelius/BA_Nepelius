@@ -24,6 +24,10 @@ video_viewer = [
         ps.Text("Press 'r' to pause/resume the video\nPress 's' to step\nPress 'esc' to exit")
     ],
     [
+        ps.Radio("Slow", key="-SLOW-", enable_events=True, group_id=0),
+        ps.Radio("Fast", key="-FAST-", enable_events=True, group_id=0, default=True)
+    ],
+    [
         ps.Button("Play", key="-PLAY-", enable_events=True)
     ]
 ]
@@ -44,23 +48,34 @@ window = ps.Window("Animal detector", layout)
 #inVid = 'vtest.avi'
 inVid = ""
 
-classNames = []
-classFile = 'coco.names'
-with open(classFile, 'rt') as f:
-    classNames = f.read().rstrip('\n').split('\n')
-print(classNames)
-
-np.random.seed(0)
-colors = np.random.randint(0, 255, size=(len(classNames), 3)).tolist()
-
-configPath = 'yolov3-tiny.cfg'
-weights = 'yolov3-tiny.weights'
-
-net = cv2.dnn.readNet(weights, configPath)
-layer_names = net.getLayerNames()
-outputlayers = [layer_names[i[0] - 1] for i in net.getUnconnectedOutLayers()]
+class Selected:
+    fastSelected = True
+    slowSelected = False
 
 def play_video():
+    classNames = []
+    classFile = 'coco.names'
+    with open(classFile, 'rt') as f:
+        classNames = f.read().rstrip('\n').split('\n')
+    print(classNames)
+
+    np.random.seed(0)
+    colors = np.random.randint(0, 255, size=(len(classNames), 3)).tolist()
+
+    configPath = ""
+    weights = ""
+
+    if Selected.slowSelected:
+        configPath = 'yolov3.cfg'
+        weights = 'yolov3.weights'
+    elif Selected.fastSelected:
+        configPath = 'yolov3-tiny.cfg'
+        weights = 'yolov3-tiny.weights'
+
+    net = cv2.dnn.readNet(weights, configPath)
+    layer_names = net.getLayerNames()
+    outputlayers = [layer_names[i[0] - 1] for i in net.getUnconnectedOutLayers()]
+
     capture = cv2.VideoCapture(inVid)
     stepping = False
     while True:
@@ -144,7 +159,13 @@ while True:
     if event == ps.WIN_CLOSED or event == 'Cancel':  # if user closes window or clicks cancel
         break
 
-    #th = threading.Thread(target=play_video)
+    if event == "-SLOW-":
+        Selected.slowSelected = True
+        Selected.fastSelected = False
+    elif event == "-FAST-":
+        Selected.fastSelected = True
+        Selected.slowSelected = False
+
     if event == "-PLAY-":
         if inVid != "":
             window.disable()
