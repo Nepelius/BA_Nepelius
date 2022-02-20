@@ -119,8 +119,8 @@ def play_video(vid):
     weights = ""
 
     if staticValues.slowSelected:
-        configPath = 'C:\\Users\\nepel\\Downloads\\yolov3.cfg'
-        weights = 'C:\\Users\\nepel\\Downloads\\yolov3.weights'
+        configPath = 'yolov3.cfg'
+        weights = 'yolov3.weights'
     elif staticValues.fastSelected:
         configPath = 'yolov3-tiny.cfg'
         weights = 'yolov3-tiny.weights'
