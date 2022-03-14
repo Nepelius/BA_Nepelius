@@ -1,0 +1,36 @@
+\chapter{Methodik}
+\label{cha:Methodik}
+
+\section{Vorbereitung und Einleitung}
+Bevor nun der Code des Prototyps erklärt wird, müssen einige Vorbereitungen getroffen werden. Als Programmiersprache wurde Python verwendet, hier ist die Installation von Packeten wie OpenCV wesentlich einfacher als z. B. in C++. Diese Bibliothek muss in weiterer Folge installiert werden, um die Methoden und Datentypen von OpenCV zugänglich zu machen. Zur Installation aller notwendiger Packete empfiehlt sich den Inhalt der \textit{rerequirements.txt} Datei mit folgendem Konsolenkommando herunterzuladen:
+\vspace{\baselineskip}
+\begin{PythonCode}[numbers=none]
+    pip install -r requirements.txt
+\end{PythonCode}
+\vspace{\baselineskip}
+Es empfiehlt sich auch eine virtuelle Umgebung für den Python-Interpreter zu erstellen, um Konflikte mit anderen Packeten zu vermeiden.\par
+Nun kann auch schon mit dem Programmieren begonnen werden, wobei der erste Schritt das Importieren der eben installierten Bibliotheken ist:
+\vspace{\baselineskip}
+\begin{PythonCode}[numbers=none]
+    import csv
+    import os
+    import cv2 as cv
+    import numpy as np
+    import PySimpleGUI as ps
+\end{PythonCode}
+\vspace{\baselineskip}
+Im weiteren Schritt kann nun ein Video gelesen und angezeigt werden. OpenCV stellt hierfür, wie schon im Grundlagen Kapitel angesprochen, eine Methode zur Verfügung:
+\vspace{\baselineskip}
+\begin{PythonCode}[numbers=none]
+    capture = cv.VideoCapture("myVideo.mp4")
+\end{PythonCode}
+\vspace{\baselineskip}
+
+\section{Einsetzen des YOLO Algorithmus}
+
+
+
+\section{Grafische Manipulation mit OpenCV}
+\section{Ergebnisqualität der Objekterkennung verbessern}
+\section{Einsetzen des CSRT Algorithmus}
+\section{GUI}
