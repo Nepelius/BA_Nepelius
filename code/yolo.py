@@ -305,7 +305,7 @@ while True:
             f
             for f in file_list
             if os.path.isfile(os.path.join(folder, f))
-            and f.lower().endswith((".wmv", ".avi"))
+            and f.lower().endswith((".wmv", ".avi", ".mp4"))
         ]
 
         window["-FILE LIST-"].update(names)
