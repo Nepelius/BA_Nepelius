@@ -1,5 +1,56 @@
 import cv2 as cv
 import numpy as np
+import PySimpleGUI as ps
+
+ps.theme('DarkGrey13')
+
+file_frame = [
+    [
+        ps.Text("Load Video or folder"),
+        ps.In(enable_events=True, key="-FOLDER-"),
+        ps.FolderBrowse()
+    ],
+    [
+        ps.Listbox(values=[], size=(70,20), enable_events=True, key="-FILE LIST-", select_mode="extended")
+    ]
+]
+
+video_viewer = [
+    [
+        ps.Text("All animals count: \nBird count: \nCat count: \nDog count: \nHorse count: \n" +
+                "Sheep count: \nCow count: \nElephant count: \nBear count: \n" +
+                "Zebra count: \nGiraffe count: \n", key="-STATS-"),
+    ],
+    [
+        ps.Text("Press 'r' to pause/resume the video\nPress 's' to step\nPress 'esc' to exit")
+    ],
+    [
+        ps.Radio("Slow", key="-SLOW-", enable_events=True, group_id=0),
+        ps.Radio("Fast", key="-FAST-", enable_events=True, group_id=0, default=True)
+    ],
+    [
+        ps.Button("Play", key="-PLAY-", enable_events=True),
+        ps.InputText(visible=False, enable_events=True, key='fig_path'),
+        ps.FileSaveAs
+        (
+            button_text="Export data as...",
+            key="-FILE SAVE-",
+            file_types=(('CSV', '.csv'), ('TXT', '.txt')),
+            enable_events=True
+        )
+    ]
+]
+
+layout = [
+    [
+        ps.Column(file_frame),
+        ps.VSeparator(),
+        ps.Column(video_viewer)
+    ]
+]
+
+
+window = ps.Window("Animal detector", layout)
 
 class staticValues:
     animals = []
@@ -23,12 +74,14 @@ def IsValidBox(box):
             return False
     return True
 
-if __name__ == '__main__':
-    capture = cv.VideoCapture("../data/data_Schafe.wmv")
+def play_video(vid):
+    staticValues.videos.append(vid)
 
+    count_frames = 0
     trackers = []
     staticValues.tracking_boxes = []
 
+    capture = cv.VideoCapture(vid)
     stepping = False
 
     # Get classnames
@@ -41,8 +94,12 @@ if __name__ == '__main__':
     np.random.seed(0)
     colors = np.random.randint(0, 255, size=(len(classNames), 3)).tolist()
 
-    configPath = 'yolov3.cfg'
-    weights = 'yolov3.weights'
+    if staticValues.slowSelected:
+        configPath = 'yolov3.cfg'
+        weights = 'yolov3.weights'
+    elif staticValues.fastSelected:
+        configPath = 'yolov3-tiny.cfg'
+        weights = 'yolov3-tiny.weights'
 
     net = cv.dnn.readNet(weights, configPath)
     layer_names = net.getLayerNames()
@@ -52,6 +109,7 @@ if __name__ == '__main__':
         success, img = capture.read()
 
         if success:
+            count_frames += 1
 
             blob = cv.dnn.blobFromImage(img, 0.00392, (416, 416), (0, 0, 0), True, crop=False)
             net.setInput(blob)
@@ -141,6 +199,9 @@ if __name__ == '__main__':
 
             cv.imshow("Output", img)
 
+            staticValues.animals.append([staticValues.AllAnimals, staticValues.Birds, staticValues.Cats, staticValues.Dogs,
+                                         staticValues.Horses, staticValues.Sheeps, staticValues.Cows])
+
             # stepping video
             if not stepping:
                 key = cv.waitKey(10)
@@ -165,3 +226,16 @@ if __name__ == '__main__':
                 stepping = True
         else:
             break
+
+    staticValues.frames.append(count_frames)
+    capture.release()
+
+# GUI main loop
+
+while True:
+    event, values = window.read()
+    if event == ps.WIN_CLOSED or event == 'Cancel':  # if user closes window or clicks cancel
+        break
+
+window.close()
+cv.destroyAllWindows()
