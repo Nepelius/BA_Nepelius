@@ -1,16 +1,19 @@
 import cv2 as cv
 
 if __name__ == '__main__':
-    path = "C:\\Users\\Nepi\\Documents\\BA\\BA_Nepelius\\data\\Schafe.wmv"
+    path = "C:\\Users\\nepel\\MBI Bachelor\\Semester 5\\Bachelorarbeit\\Videos\\Untersulzbachtal\\Gams.wmv"
 
     capture = cv.VideoCapture(path)
 
     rois = []
 
+    img_count = 0
+
     while True:
         success, img = capture.read()
 
         if success:
+            img_count += 1
             #out = cv.selectROIs("Output", img)
 
             #if len(out) != 0:
@@ -27,4 +30,6 @@ if __name__ == '__main__':
         else:
             break
 
+
+    print(img_count)
     capture.release()

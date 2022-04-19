@@ -145,6 +145,7 @@ def play_video(vid):
         success, img = capture.read()
 
         if success:
+            print(count_frames)
             count_frames += 1
 
             blob = cv.dnn.blobFromImage(img, 0.00392, (416, 416), (0, 0, 0), True, crop=False)
