@@ -14,6 +14,7 @@ if __name__ == '__main__':
 
         if success:
             img_count += 1
+            print(img_count)
             #out = cv.selectROIs("Output", img)
 
             #if len(out) != 0:
