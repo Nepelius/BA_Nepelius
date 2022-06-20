@@ -312,6 +312,7 @@ while True:
         window["-FILE LIST-"].update(names)
 
     if event == "-FILE LIST-":
+        inVids = []
         try:
             for i in values["-FILE LIST-"]:
                 filename = os.path.join(values["-FOLDER-"],i)
