@@ -1,2 +1,3 @@
 # BA_Nepelius
 ## Bachelorarbeit Lukas Nepelius 2021/22 - Tiere klassifizieren
+A pre-trained Yolov3 model is used to classify relevant animals of the national park first. Once the first frame of a unique animal is identified in the video, it is tracked for the rest of the sequence. The Discriminative Correlation Filter with Channel and Spatial Reliability (CSRT) method is used to track the animals. The goal is to show the count of different animal species per video for an automated habitat-monitoring tool. Additionally, a GUI was implemented for loading the videos, applying the algorithms and displaying the counting results.
